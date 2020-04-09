@@ -1,0 +1,12 @@
+%alert {
+    font-size: medium;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 20px;
+    text-align: center;
+    color: black;
+}
+
+.danger {
+    @extend %alert;
+    background-color: darkgray;
+}

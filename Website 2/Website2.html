@@ -1,7 +1,89 @@
 <!DOCTYPE html>
 <head>
     <title>2-Website</title>
-    <body>
-        
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="one.scss">
+    <style>
+    h1, h2 {
+        color: chocolate;
+    }
+    ol  li {
+        color: cornflowerblue;
+    }
+    button {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-weight: normal;
+    }
+    button:hover {
+        font-weight: bolder;
+        font-size: larger;
+    }
+    a::after {
+        content: "\21d2 Click to go";
+        font-weight: bolder;
+    }
+    p::selection {
+        background-color: darkblue;
+        color: white;
+    }
+    @media (min-width: 500px) {
+        .screen-only{
+            display: none;
+        }
+        h1::before {
+            content: "Welcome to my page!";
+        }
+    }
+    @media (max-width: 499px) {
+        h1::before{
+            content: "Welcome!"; 
+        }
+    }
+    .alert {
+        text-align: center;
+    }
+    .container {
+        margin-left: 50px;
+    }
+    div p{
+        color: tomato;
+    }
+    .danger {
+    font-size: medium;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 20px;
+    text-align: center;
+    color: black;
+    }
+
+    .danger {
+        background-color: darkgray;
+    }
+    </style>
+
+    <body style="padding: 10px;">
+        <h1>Start CSS</h1>
+        <h2>Start CSS</h2>
+        <div class="container">
+            <div class="danger" role="alert">
+                This is under construction!
+            </div>
+            <p>Inside part</p>
+        </div>
+        <ol>
+            <p>Not included</p>
+            <li>Programming languages</li>
+            <ul>
+                <li>C</li>
+                <li>Java</li>
+            </ul>
+            <li>Database</li>
+        </ol>
+        <form>
+            <a href="">Kill me</a>
+            <br>
+            <button>Click me!</button>
+        </form>
+        <p class=screen-only>Not applicable to print</p>
     </body>
 </head>
