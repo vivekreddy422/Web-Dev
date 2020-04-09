@@ -3,6 +3,9 @@
     <head>
         <title>Web Page</title>
         <style>
+            #courses {
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
             h1 {
                 color:dimgrey;
                 text-align:center;
@@ -14,6 +17,20 @@
             p {
                 font-family: Georgia, 'Times New Roman', Times, serif;
             }
+            th, td {
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                font-size: medium;
+                border: 1px solid black;
+            }
+            th {
+                font-weight: bolder;
+                background-color: darkgray;
+            }
+            table {
+                border: 2px solid black;
+                border-collapse: collapse;
+                width: 50%;
+            }
         </style>
     </head>
     <body>
@@ -23,6 +40,42 @@
         <div>
             <h2>About me</h2>
             <p>I am Vivek. I am pursuing Masters in Information Technology. Hi, I am Vivek. I was born and brought up in Hyderabad. I graduated from Manipal University, Manipal. After graduation, I worked as an application development analyst at Accenture, Pune for 20 months where I contributed my coding and automation testing skills to develop an Enterprise File Exchange application (a banking app) . I wanted a different career path. So I chose to pursue a career in Machine Learning. So, I had decided to pursue Masters at IIIT Hyderabad. I play badminton and follow Formula1 racing. I like how the teams adapt to the quick changes made by F1. Even now, I learn to be as adaptive and as flexible as I can be. One day, my goal is to write the best compression algorithm with the least file size.</p>
+        </div>
+        <!--List of courses-->
+        <div id = "courses">
+            <h4>List of courses</h4>
+            <ul>
+                <li>Computational Thinking</li>
+                <li>CSPP1 - Python</li>
+                <li>IDS</li>
+                <li>OOP - Java</li>
+                <li>ADS - 1</li>
+                <li>ADS - 2</li>
+                <li>DBMS</li>
+                <li>SEF</li>
+                <li>IOS</li>
+                <li>CNF</li>
+                <li>ICS</li>
+            </ul>
+            <h4>Experiences</h4>
+            <table>
+                <tr>
+                    <th>Course</th>
+                    <th>Learning</th>
+                </tr>
+                <tr>
+                    <td>Programming Languages</td>
+                    <td>I gained the intermediate level of coding skills in Java and Python</td>
+                </tr>
+                <tr>
+                    <td>Database</td>
+                    <td>Learnt data retrieval from Relational Databases like PostGreSQL</td>
+                </tr>
+                <tr>
+                    <td>Data Structures</td>
+                    <td>Learnt the applications of different data structures and algorithms used in implementing them</td>
+                </tr>
+            </table>
         </div>
     </body>
 </html>
