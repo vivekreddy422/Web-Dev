@@ -4,5 +4,5 @@ class Node:
         self.right = None
         self.left = None
 
-h = Node(5)
-print(h.content)
+# h = Node(5)
+# print(h.content)
