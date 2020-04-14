@@ -5,4 +5,4 @@ class Node:
         self.left = None
 
 # h = Node(5)
-# print(h.content)
+# print(Node(5).content)
