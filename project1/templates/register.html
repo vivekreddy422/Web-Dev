@@ -4,35 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='style.css') }}>
-    <style>
-        body {
-            background-color: black;
-        }
-        input[type=text], input[type=password], input[type=email] {
-            background-color: #f1f1f1;
-            width: 100%;
-            padding: 5px;
-            border: none;
-        }
-        input[type=date] {
-            border-style: solid 1px;
-        }
-        #register {
-            background-color: darkslategray;
-            width: 70%;
-            text-align: center;
-            margin-top: 10px;
-            margin-left: 70px;
-            opacity: 0.9;
-        }
-        #register:hover {
-            opacity: 1.1;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    
     <div class="card" style="width: 40%;margin-left: 30%;margin-top: 5%;">
         <div class="card-header">
             <h4>Register here</h4>
@@ -41,6 +15,9 @@
         <div class="card-body">
             <form action="/register" method="POST">
                 <label for="username"><b>Username</b></label><br>
+                {% if flag %}
+                    <p style="font-size: x-small;">Username already taken. Please try with a new name</p>
+                {% endif %}
                 <input type="text" placeholder="Enter username" name="username" required><br>
                 <label for="pwd" style="margin-top: 20px;"><b>Password</b></label><br>
                 <input type="password" placeholder="Enter password" name="pwd" required><br>
