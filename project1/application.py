@@ -21,7 +21,7 @@ engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
 
-@app.route("/")
+@app.route("/register")
 def index():
     # return "Project 1: TODO"
     return render_template("register.html")
