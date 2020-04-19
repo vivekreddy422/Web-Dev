@@ -10,12 +10,22 @@ input[type=text], input[type=password], input[type=email] {
 input[type=date] {
     border-style: solid 1px;
 }
-#register {
-    background-color: darkslategray;
-    width: 70%;
+#login {
+    background-color: darkolivegreen;
+    width: 40%;
     text-align: center;
     margin-top: 10px;
-    margin-left: 70px;
+    opacity: 0.8;
+}
+#login:hover {
+    opacity: 1.1;
+}
+#register {
+    background-color: darkslategray;
+    width: 40%;
+    text-align: center;
+    margin-top: 10px;
+    margin-left: 15px;
     opacity: 0.9;
 }
 #register:hover {

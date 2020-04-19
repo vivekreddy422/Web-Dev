@@ -14,12 +14,18 @@
         </div>
         <div class="card-body">
             <form action="/register" method="POST">
-                <label for="username"><b>Username</b></label><br>
+                <label for="username"><b>Username</b>*</label><br>
                 {% if flag %}
                     <p style="font-size: x-small;">Username already taken. Please try with a new name</p>
                 {% endif %}
+                {% if var=="invalid" %}
+                    <p style="font-size: x-small;">Invalid User. Please try to register</p>
+                {% endif %}
                 <input type="text" placeholder="Enter username" name="username" required><br>
-                <label for="pwd" style="margin-top: 20px;"><b>Password</b></label><br>
+                <label for="pwd" style="margin-top: 20px;"><b>Password</b>*</label><br>
+                {% if var=="mismatch" %}
+                    <p style="font-size: x-small;">Passwords don't match. Please try again.</p>
+                {% endif %}
                 <input type="password" placeholder="Enter password" name="pwd" required><br>
                 <label for="email" style="margin-top: 20px;"><b>Email</b></label><br>
                 <input type="email" name="email" placeholder="Your email address">
@@ -32,7 +38,11 @@
                 </div>
                 <label for="DOB"><b>Date of Birth</b></label>
                 <input type="date" name="DOB" style="margin-left: 10px;"><br>
-                <button id="register" type="submit">Register</button>
+                <div style="text-align: center;">
+                    <button id="login" type="submit" name="action" value="login">Login</button>
+                    <button id="register" type="submit" name="action" value="register">Register</button>
+                </div>
+                
             </form>
         </div>
     </div>
