@@ -3,12 +3,19 @@ from models import *
 from create import *
 from datetime import datetime
 from flask import Flask, session, render_template, request, redirect
+from flask_session import Session
 
 app = Flask(__name__)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://jhidcdnultjgxn:d826d980191f190b67002fabead45c4966294a74e382693d59edb44441f70727@ec2-54-165-36-134.compute-1.amazonaws.com:5432/d5flmt5uf6icgd"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
+
+#session
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
+session = {}
 
 @app.route("/register")
 def index():
@@ -40,12 +47,12 @@ def show():
         db.session.add(u)
         db.session.commit()
         return render_template("success.html")
-    elif request.form["action"] == "login":
-        return authentication()
+    # elif request.form["action"] == "login":
+    #     return authentication()
 
 @app.route("/admin")
 def show_users():
-    users = User.query.order_by(User.time_stamp).all()
+    users = User.query.order_by(User.time_stamp.desc()).all()
     return render_template("users_table.html", users=users)
 
 @app.route("/auth", methods=["POST"])
@@ -55,6 +62,7 @@ def authentication():
     user = User.query.get(username)
     if user:
         if password == user.password:
+            session["username"] = username
             return redirect("/home")
         else:
             return render_template("register.html", var="mismatch")
@@ -63,4 +71,12 @@ def authentication():
 
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    if "username" in session:
+        return render_template("home.html")
+    else:
+        return redirect("/register")
+
+@app.route("/logout")
+def logout():
+    session.pop("username", None)
+    return redirect("/register")

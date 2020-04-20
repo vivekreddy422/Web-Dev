@@ -9,6 +9,7 @@ class User(db.Model):
     email = db.Column(db.String)
     gender = db.Column(db.String)
     DOB = db.Column(db.Date())
+
     time_stamp = db.Column(db.DateTime(), nullable=False)
 
 class Book(db.Model):
