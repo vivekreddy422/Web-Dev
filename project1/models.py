@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -9,8 +10,7 @@ class User(db.Model):
     email = db.Column(db.String)
     gender = db.Column(db.String)
     DOB = db.Column(db.Date())
-
-    time_stamp = db.Column(db.DateTime(), nullable=False)
+    time_stamp = db.Column(db.DateTime(), default=datetime.now(), nullable=False)
 
 class Book(db.Model):
     __tablename__ = "books"

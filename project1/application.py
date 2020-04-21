@@ -15,7 +15,6 @@ db.init_app(app)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
-session = {}
 
 @app.route("/register")
 def index():
@@ -42,13 +41,10 @@ def show():
         DOB = request.form.get("DOB")
         if DOB == '':
             DOB = None
-        time_stamp = datetime.now()
-        u = User(username=username, password=password, email=email, gender=gender, DOB=DOB, time_stamp=time_stamp)
+        u = User(username=username, password=password, email=email, gender=gender, DOB=DOB)
         db.session.add(u)
         db.session.commit()
         return render_template("success.html")
-    # elif request.form["action"] == "login":
-    #     return authentication()
 
 @app.route("/admin")
 def show_users():
