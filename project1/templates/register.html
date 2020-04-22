@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="card" style="width: 40%;margin-left: 30%;margin-top: 5%;">
+        <div class="card-header">
+            <h4>Register/Login</h4>
+            <p>Please fill in the details</p>
+        </div>
+        <div class="card-body">
+            <form action="/register" method="POST">
+                <label for="username"><b>Username</b>*</label><br>
+                {% if flag %}
+                    <p style="font-size: x-small;">Username already taken. Please try with a new name</p>
+                {% endif %}
+                {% if var=="invalid" %}
+                    <p style="font-size: x-small;">Invalid User. Please try to register</p>
+                {% endif %}
+                <input type="text" placeholder="Enter username" name="username" required><br>
+                <label for="pwd" style="margin-top: 20px;"><b>Password</b>*</label><br>
+                {% if var=="mismatch" %}
+                    <p style="font-size: x-small;">Passwords don't match. Please try again.</p>
+                {% endif %}
+                <input type="password" placeholder="Enter password" name="pwd" required><br>
+                <label for="email" style="margin-top: 20px;"><b>Email</b></label><br>
+                <input type="email" name="email" placeholder="Your email address">
+                <div style="margin-top: 20px;">
+                    <span><b>Gender</b></span>
+                    <input type="radio" name="gender" value="male" style="margin-left: 20px;">
+                    <label for="gender">Male</label>
+                    <input type="radio" name="gender" value="female" style="margin-left: 10px;">
+                    <label for="gender">Female</label>
+                </div>
+                <label for="DOB"><b>Date of Birth</b></label>
+                <input type="date" name="DOB" style="margin-left: 10px;"><br>
+                <div style="text-align: center;">
+                    <button id="login" type="submit" name="action" value="login" formaction="/auth">Login</button>
+                    <button id="register" type="submit" name="action" value="register">Register</button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</body>
+</html>
