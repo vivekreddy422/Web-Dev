@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Webpage</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+        <!-- <link rel="stylesheet" type="text/css" href="C:\vamsi\git repository\Web-Programming\project1\static\style.css"> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+
+    <body class="body_reg">
+        <div class="form-container">
+            <div></div>
+            <div class="title">
+                <h2>Login</h2>
+            </div>
+            <div class="row">
+                <div class="form-column">
+                    <form action="" >
+                        {% if alert %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ errorMessage }}
+                            </div>
+                        {% endif %}
+                        <label for="userName">Username</label>
+                        <input type="text" id="userName" name="userName" placeholder="Enter your new username..">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Enter your password...">
+                        <div class="button_area">
+                            <button class="button submit_button" formmethod="GET" formaction= "{{ url_for('register') }}" name="button" value="register">Register</button>
+                            <button class="button login_button" formmethod="POST" name="button" value="login">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

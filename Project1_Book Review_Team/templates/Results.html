@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HomePage</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+        <style>
+            body {
+                background-image: url('/static/Home.jpg');
+                /* background-repeat: no-repeat; */
+                /* background-size: cover; */
+                background-size: 100%;
+            }
+            #topBar,#topBar a{
+                margin: 0cm;
+                width: 100%;
+                color: white;
+            }
+
+            #User {
+                float: left;
+            }
+
+            #logout {
+                float: right;
+            }
+
+            #searchBar {
+                padding-top: 1cm;
+                padding-left: 6.5cm;
+            }
+
+            #Bar {
+                width: 50%;
+            }
+
+            .form-control {
+                width: 3cm;
+                float: left;
+            }
+
+            
+        </style>
+    </head>
+    <body>
+        <div id = "topBar">
+            <div id = "User">{{ name }}</div>
+            <div id = "logout"><a href="{{ url_for('logout') }}">Logout</a></div>
+        </div>
+        <div id = "searchBar">
+            <form action="{{ url_for('search') }}" method= "POST">
+                <select class="form-control" name="type">
+                    <option value="all">all</option>
+                    <option value="Isbn">Isbn</option>
+                    <option value="title">title</option>
+                    <option value="author">author</option>
+                </select>         
+                <input type="text" id = "Bar" name="BookDetails" placeholder="Book Details" required >
+                <button>search</button>
+                <div>{{ displayResult }}</div>
+                <div id = results data-spy="scroll" data-target="#results">
+                    {% for Book in Books %}
+                        <div class="row">
+                            <div class="col">{{ Book.isbn }} {{ Book.title }} {{ Book.author }}</div>
+                            <div class="col"><a href="{{ url_for('review', isbn = Book.isbn) }}">clickhere</a></div>
+                            <div class="w-70"></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </form>
+
+        </div>
+    </body>
+</html>

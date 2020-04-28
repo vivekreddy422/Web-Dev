@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin</title>
+        <style>
+            table {
+                border: 2px solid black;
+                border-collapse: collapse;
+                width: 50%;
+            }
+
+            th, td {
+                border: 1px solid black;
+                padding: 5px;
+                text-align: center;
+            }
+
+            th {
+                background-color: lightgray;
+            }
+        </style>
+    </head>
+    <body>
+        <table class = "table">
+            <tr>
+                <th>Username</th>
+                <th>Password</th>
+                <th>TimeStamp</th>
+            </tr>
+            {% for user in allUsers %}
+                <tr>
+                    <td>{{ user.userName }}</td>
+                    <td>{{ user.password }}</td>
+                    <td>{{ user.created_on }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>

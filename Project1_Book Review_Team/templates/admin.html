@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin page</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+        <!-- <link rel="stylesheet" type="text/css" href="D:\MSIT\Web_App_Dev\Project\Web_App_Dev_HTML\Project1\project1\static\style.css"> -->
+    </head>
+
+    <body class="body_admin">
+        <h1 id="admin_title">Welcome Admin!</h1>
+        <h3 id="admin_title1">Users Data</he>
+        <div class="user_data">
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Timestamp</th>
+                  </tr>
+                </thead>
+                <tbody class="tbody">
+                    {% for user in allUsers %}
+                        <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                            <td>{{user.name}}</td>
+                            <td>{{user.userName}}</td>
+                            <td>{{user.created_on}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+        </div>
+        
+    </body>
+</html>
