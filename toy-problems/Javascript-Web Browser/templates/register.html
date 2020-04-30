@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <!-- <script src="{{ url_for('static', filename='register.js') }}"></script> -->
+    <script>
+         document.addEventListener("DOMContentLoaded", () => {
+            document.querySelector("#username").onkeyup = () => {
+                if(validateEmail(document.querySelector("#username").value)) {
+                    document.querySelector("#validation-message").innerHTML = ""
+                    document.querySelector("#register").disabled = false;
+                    // document.querySelector("#login").disabled = false;
+                    return true
+                } else {
+                    document.querySelector("#validation-message").innerHTML = "Username should be an email id"
+                    document.querySelector("#register").disabled = true;
+                    // document.querySelector("#login").disabled = true;
+                    return false
+                }
+            }
+
+            document.querySelector("#password").onkeyup = () => {
+                var password = document.querySelector("#password").value
+                if (validatePassword(password)) {
+                    document.querySelector("#validation-message").innerHTML = ""
+                    document.querySelector("#register").disabled = false;
+                    document.querySelector("#login").disabled = false;
+                    return true
+                } else {
+                    document.querySelector("#validation-message").innerHTML = "The password should contain at least 6 characters, with at least one uppercase letter, one lowercase letter, one number and a symbol."
+                    document.querySelector("#register").disabled = true;
+                    document.querySelector("#login").disabled = true;
+                    return false
+                }
+            }
+
+            document.querySelector("#register").onclick = () => {
+                if(validateEmail(document.querySelector("#username").value) == false) {
+                    document.querySelector("#validation-message").innerHTML = "Username should be an email id"
+                    document.querySelector("#register").disabled = true;
+                    return false
+                } else if (validatePassword(document.querySelector("#password").value) == false) {
+                    document.querySelector("#validation-message").innerHTML = "The password should contain at least 6 characters, with at least one uppercase letter, one lowercase letter, one number and a symbol."
+                    document.querySelector("#register").disabled = true;
+                    return false
+                } else {
+                    document.querySelector("#validation-message").innerHTML = ""
+                    document.querySelector("#register").disabled = false;
+                    return true
+                }
+            }
+        });
+
+        function validateEmail(word) {
+            var email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+            if (word.match(email)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function validatePassword(word) {
+            if (word.length < 6 || word.search(/[a-z]/) < 0 || word.search(/[A-Z]/) < 0 || word.search(/[0-9]/) < 0
+                || word.search(/[!@#$%^&*]/) < 0) {
+            return false
+            } else {
+                return true
+            }
+        }
+        function hi() {
+            console.log("hi...")
+            alert("hello");
+        }
+    </script>
+</head>
+<body>
+    <div class="card" style="width: 40%;margin-left: 30%;margin-top: 5%;">
+        <div class="card-header">
+            <h4>Register/Login</h4>
+            <p>Please fill in the details</p>
+        </div>
+        <div class="card-body">
+            <form>
+                <label for="username"><b>Username</b>*</label><br>
+                {% if flag %}
+                    <p style="font-size: x-small;">Username already taken. Please try with a new name</p>
+                {% endif %}
+                {% if var=="invalid" %}
+                    <p style="font-size: x-small;">Invalid User. Please try to register</p>
+                {% endif %}
+                <input type="text" id="username" placeholder="Enter username" name="username" required><br>
+                <label for="pwd" style="margin-top: 20px;"><b>Password</b>*</label><br>
+                {% if var=="mismatch" %}
+                    <p style="font-size: x-small;">Passwords don't match. Please try again.</p>
+                {% endif %}
+                <input type="password" id="password" placeholder="Enter password" name="pwd" required><br>
+                <div style="text-align: center;">
+                    <!-- <button id="login" type="submit" name="action" value="login" formaction="/auth">Login</button> -->
+                    <button id="register" type="submit" name="action" value="register">Register</button>
+                    <p id="validation-message"></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
