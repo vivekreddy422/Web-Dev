@@ -1,5 +1,8 @@
 body {
     background-color: black;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTQulJm-Ax4ZpsVUTN426oXeXmAIS58Uxc6j0mPAD-d_MT4mxrP&usqp=CAU");
+    background-size: cover;
+    height: 100%;
 }
 input[type=text], input[type=password], input[type=email] {
     background-color: #f1f1f1;
@@ -31,3 +34,4 @@ input[type=date] {
 #register:hover {
     opacity: 1.1;
 }
+

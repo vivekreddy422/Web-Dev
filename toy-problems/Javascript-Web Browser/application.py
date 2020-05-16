@@ -31,3 +31,17 @@ def show():
             return render_template("success.html")
         else:
             return "400"
+
+@app.route("/auth", methods=["POST"])
+def authentication():
+    username = request.form.get("username")
+    password = request.form.get("pwd")
+    user = User.query.get(username)
+    if user:
+        if password == user.password:
+            session["username"] = username
+            return redirect("/home")
+        else:
+            return render_template("register.html", var="mismatch")
+    else:
+        return render_template("register.html", var="invalid")
