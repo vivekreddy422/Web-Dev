@@ -1,0 +1,147 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='review_style.css') }}">
+    <title>Document</title>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            var x = document.getElementById("review_feature")
+            x.style.display="block"
+        })
+        function review() {
+            const request = new XMLHttpRequest()
+            const isbn = document.querySelector("#isbn").value
+            request.open("POST", "/api/submit-review")
+
+            request.onload = () => {
+                const data = JSON.parse(request.responseText)
+                console.log(data)
+                if (data.status_code === 200) {
+                    set_reviewHTML(data.rating, data.review)
+                } else {
+                    set_reviewHTML(null, "")
+                }
+            }
+            const data = new FormData()
+            data.append("isbn", isbn)
+            request.send(data)
+            return false
+        }
+
+        function submit_review() {
+            const request = new XMLHttpRequest()
+            const isbn = document.querySelector("#isbn").value
+            //to get the rating
+            var ratings = document.getElementsByName("rating")
+            var rating = null
+            var flag = 0
+            for (let i = 0; i < ratings.length; i++) {
+                if(ratings[i].checked === true) {
+                    rating = ratings[i].value
+                    console.log("user rating", rating)
+                }
+            }
+            const review = document.querySelector("#text-area").value
+            request.open("POST", "/submit-review")
+
+            request.onload = () => {
+                const data = JSON.parse(request.responseText)
+                if (data.status_code === 200) {
+                    alert("updated")
+                    set_reviewHTML(data.rating, data.review)
+                } else {
+                    alert("There was an error")
+                }
+            }
+
+            const data = new FormData()
+            data.append("isbn", isbn)
+            data.append("rating", rating)
+            data.append("review", review)
+            request.send(data)
+            return false
+        }
+
+        function set_reviewHTML(rating, review) {
+            if (rating === 5) {
+                    var codehtml = '<input type="radio" id="star5" name="rating" value="5" checked/>'+
+                    '<label for="star5"></label>' + '<input type="radio" id="star4" name="rating" value="4" />'
+                    +'<label for="star4"></label>' + '<input type="radio" id="star3" name="rating" value="3" />'
+                    +'<label for="star3"></label>' + '<input type="radio" id="star2" name="rating" value="2" />'
+                    +'<label for="star2"></label>' + '<input type="radio" id="star1" name="rating" value="1" />'
+                    +'<label for="star1"></label>';
+                    document.getElementById("rating").innerHTML = codehtml
+                } else if(rating === 4) {
+                        var codehtml = '<input type="radio" id="star5" name="rating" value="5" />'+
+                    '<label for="star5"></label>' + '<input type="radio" id="star4" name="rating" value="4" checked/>'
+                    +'<label for="star4"></label>' + '<input type="radio" id="star3" name="rating" value="3" />'
+                    +'<label for="star3"></label>' + '<input type="radio" id="star2" name="rating" value="2" />'
+                    +'<label for="star2"></label>' + '<input type="radio" id="star1" name="rating" value="1" />'
+                    +'<label for="star1"></label>';
+                    document.getElementById("rating").innerHTML = codehtml
+                    
+                } else if(rating === 3) {
+                    var codehtml = '<input type="radio" id="star5" name="rating" value="5" />'+
+                    '<label for="star5"></label>' + '<input type="radio" id="star4" name="rating" value="4" />'
+                    +'<label for="star4"></label>' + '<input type="radio" id="star3" name="rating" value="3" checked/>'
+                    +'<label for="star3"></label>' + '<input type="radio" id="star2" name="rating" value="2" />'
+                    +'<label for="star2"></label>' + '<input type="radio" id="star1" name="rating" value="1" />'
+                    +'<label for="star1"></label>';
+                    document.getElementById("rating").innerHTML = codehtml
+                } else if(rating === 2) {
+                    var codehtml = '<input type="radio" id="star5" name="rating" value="5" />'+
+                    '<label for="star5"></label>' + '<input type="radio" id="star4" name="rating" value="4" />'
+                    +'<label for="star4"></label>' + '<input type="radio" id="star3" name="rating" value="3" />'
+                    +'<label for="star3"></label>' + '<input type="radio" id="star2" name="rating" value="2" checked/>'
+                    +'<label for="star2"></label>' + '<input type="radio" id="star1" name="rating" value="1" />'
+                    +'<label for="star1"></label>';
+                    document.getElementById("rating").innerHTML = codehtml
+                } else if(rating === 1) {
+                    var codehtml = '<input type="radio" id="star5" name="rating" value="5" />'+
+                    '<label for="star5"></label>' + '<input type="radio" id="star4" name="rating" value="4" />'
+                    +'<label for="star4"></label>' + '<input type="radio" id="star3" name="rating" value="3" />'
+                    +'<label for="star3"></label>' + '<input type="radio" id="star2" name="rating" value="2" />'
+                    +'<label for="star2"></label>' + '<input type="radio" id="star1" name="rating" value="1" checked/>'
+                    +'<label for="star1"></label>';
+                    document.getElementById("rating").innerHTML = codehtml
+                } else {
+                    var codehtml = '<input type="radio" id="star5" name="rating" value="5" />'+
+                    '<label for="star5"></label>' + '<input type="radio" id="star4" name="rating" value="4" />'
+                    +'<label for="star4"></label>' + '<input type="radio" id="star3" name="rating" value="3" />'
+                    +'<label for="star3"></label>' + '<input type="radio" id="star2" name="rating" value="2" />'
+                    +'<label for="star2"></label>' + '<input type="radio" id="star1" name="rating" value="1" />'
+                    +'<label for="star1"></label>';
+                    document.getElementById("rating").innerHTML = codehtml
+                }
+
+                if(review === "") {
+                    var codereview = '<label for="text-area"><b>Review</b></label><br>' + '<textarea id="text-area" placeholder="Post your review"  rows="5" name="review"></textarea>'
+                    document.getElementById("review_text").innerHTML = codereview
+                } else {
+                    var codereview ='<label for="text-area"><b>Review</b></label><br>' + '<textarea id="text-area" rows="5" name="review">' + review + '</textarea>'
+                    document.getElementById("review_text").innerHTML = codereview
+                }
+        }
+
+    </script>
+</head>
+<body>
+    <div id="review_feature" style="display: none;">
+        
+        <div>
+            <input id="isbn" type="text" placeholder="isbn">
+            <button onclick="review()">some</button>
+        </div>
+        
+        <div class="rate" id="rating"></div><br><br><br>
+        
+        <div id="review_text"></div>
+
+        <button onclick="submit_review()">Submit</button>
+    </div>
+</body>
+
+</html>

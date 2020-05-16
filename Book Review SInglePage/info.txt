@@ -1,0 +1,8 @@
+key: spU8d3Q4mx9qnswi7Lo4dQ
+
+postgres://gsiocwelcnehdf:9b84cba2e5fc10857a3af982e44da8c4ae0b4018249e926cee6788db6ee6653d@ec2-54-80-184-43.compute-1.amazonaws.com:5432/d8g03d6bgsjidr
+
+password:  9b84cba2e5fc10857a3af982e44da8c4ae0b4018249e926cee6788db6ee6653d
+user:	gsiocwelcnehdf
+Host:	ec2-54-80-184-43.compute-1.amazonaws.com
+Database: 	d8g03d6bgsjidr

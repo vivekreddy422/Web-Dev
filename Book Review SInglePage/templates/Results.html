@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HomePage</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">        
+        <script>
+            var global_isbn;
+            document.addEventListener('DOMContentLoaded', ()=> {
+            document.querySelector("#search-button").onclick = () => {
+                // document.querySelector(".BookPage").innerHTML = "Here"
+                const request = new XMLHttpRequest()
+                const type = document.querySelector(".form-type").value
+                const BookDetails = document.querySelector(".Bar").value
+                request.open('POST','/api/search')
+
+                const data = new FormData()
+                data.append('type',type)
+                data.append('query',BookDetails)
+                request.send(data)
+
+                request.onload = () => {
+                    const data = JSON.parse(request.responseText)
+                    document.querySelector("#zoom_title").innerHTML = ""
+                    for (key in data.allBooks) {
+                        const book = document.createElement("a");
+                        book.innerText = data.allBooks[key]["title"]
+                        book.setAttribute("href","#");
+                        let isbn_book = data.allBooks[key]["isbn"]
+                        book.onclick = () => {bookPage(isbn_book);review(isbn_book)};
+
+                        document.querySelector("#zoom_title").append(book)
+                        document.querySelector("#zoom_title").append(document.createElement('br'))
+                    }
+                }
+                return false
+            }
+
+            function bookPage(string){
+                var isbn = string
+                global_isbn = string
+                const request = new XMLHttpRequest();
+                request.open('POST', '/api/bookpage');
+                const data = new FormData();
+                data.append('isbn',isbn);
+                request.send(data)
+                request.onload = () => {
+                    var data = JSON.parse(request.responseText)
+                    if (data.status_code === 200) {
+                        document.querySelector("#book_isbn").innerHTML = "Book ISBN \xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0:   "+ data.book.isbn
+                        document.querySelector("#book_author").innerHTML = "Book Author :   "+ data.book.author
+                        document.querySelector("#book_title").innerHTML ="Book Title   :    "+ data.book.title
+                        document.querySelector("#book_year").innerHTML ="Publication year     :    "+ data.book.year
+                    }
+                }
+                return false
+            }
+
+            function review(new_isbn) {
+                var x = document.getElementById("review_feature")
+                x.style.display="block"
+                const request = new XMLHttpRequest()
+                // const isbn = document.querySelector("#isbn").value
+                request.open("POST", "/api/submit-review")
+                request.onload = () => {
+                    const data = JSON.parse(request.responseText)
+                    console.log(data)
+                    if (data.status_code === 200) {
+                        set_reviewHTML(data.rating, data.review)
+                    } else {
+                        set_reviewHTML(null, "")
+                    }
+                }
+                const data = new FormData()
+                data.append("isbn", new_isbn)
+                request.send(data)
+                return false
+            }
+
+            function set_reviewHTML(rating, review) {
+                if (rating === 5) {
+                        var codehtml = '<input type="radio" id="star5" name="rating" value="5" checked/>'+
+                        '<label for="star5"></label>' + '<input type="radio" id="star4" name="rating" value="4" />'
+                        +'<label for="star4"></label>' + '<input type="radio" id="star3" name="rating" value="3" />'
+                        +'<label for="star3"></label>' + '<input type="radio" id="star2" name="rating" value="2" />'
+                        +'<label for="star2"></label>' + '<input type="radio" id="star1" name="rating" value="1" />'
+                        +'<label for="star1"></label>';
+                        document.getElementById("rating").innerHTML = codehtml
+                    } else if(rating === 4) {
+                            var codehtml = '<input type="radio" id="star5" name="rating" value="5" />'+
+                        '<label for="star5"></label>' + '<input type="radio" id="star4" name="rating" value="4" checked/>'
+                        +'<label for="star4"></label>' + '<input type="radio" id="star3" name="rating" value="3" />'
+                        +'<label for="star3"></label>' + '<input type="radio" id="star2" name="rating" value="2" />'
+                        +'<label for="star2"></label>' + '<input type="radio" id="star1" name="rating" value="1" />'
+                        +'<label for="star1"></label>';
+                        document.getElementById("rating").innerHTML = codehtml
+                        
+                    } else if(rating === 3) {
+                        var codehtml = '<input type="radio" id="star5" name="rating" value="5" />'+
+                        '<label for="star5"></label>' + '<input type="radio" id="star4" name="rating" value="4" />'
+                        +'<label for="star4"></label>' + '<input type="radio" id="star3" name="rating" value="3" checked/>'
+                        +'<label for="star3"></label>' + '<input type="radio" id="star2" name="rating" value="2" />'
+                        +'<label for="star2"></label>' + '<input type="radio" id="star1" name="rating" value="1" />'
+                        +'<label for="star1"></label>';
+                        document.getElementById("rating").innerHTML = codehtml
+                    } else if(rating === 2) {
+                        var codehtml = '<input type="radio" id="star5" name="rating" value="5" />'+
+                        '<label for="star5"></label>' + '<input type="radio" id="star4" name="rating" value="4" />'
+                        +'<label for="star4"></label>' + '<input type="radio" id="star3" name="rating" value="3" />'
+                        +'<label for="star3"></label>' + '<input type="radio" id="star2" name="rating" value="2" checked/>'
+                        +'<label for="star2"></label>' + '<input type="radio" id="star1" name="rating" value="1" />'
+                        +'<label for="star1"></label>';
+                        document.getElementById("rating").innerHTML = codehtml
+                    } else if(rating === 1) {
+                        var codehtml = '<input type="radio" id="star5" name="rating" value="5" />'+
+                        '<label for="star5"></label>' + '<input type="radio" id="star4" name="rating" value="4" />'
+                        +'<label for="star4"></label>' + '<input type="radio" id="star3" name="rating" value="3" />'
+                        +'<label for="star3"></label>' + '<input type="radio" id="star2" name="rating" value="2" />'
+                        +'<label for="star2"></label>' + '<input type="radio" id="star1" name="rating" value="1" checked/>'
+                        +'<label for="star1"></label>';
+                        document.getElementById("rating").innerHTML = codehtml
+                    } else {
+                        var codehtml = '<input type="radio" id="star5" name="rating" value="5" />'+
+                        '<label for="star5"></label>' + '<input type="radio" id="star4" name="rating" value="4" />'
+                        +'<label for="star4"></label>' + '<input type="radio" id="star3" name="rating" value="3" />'
+                        +'<label for="star3"></label>' + '<input type="radio" id="star2" name="rating" value="2" />'
+                        +'<label for="star2"></label>' + '<input type="radio" id="star1" name="rating" value="1" />'
+                        +'<label for="star1"></label>';
+                        document.getElementById("rating").innerHTML = codehtml
+                    }
+
+                    if(review === "") {
+                        var codereview = '<label id = "label_review" for="text-area"><b>Review</b></label><br>' + '<textarea id="text-area" placeholder="Post your review" rows="5" name="review"></textarea>'
+                        document.getElementById("review_text").innerHTML = codereview
+                    } else {
+                        var codereview ='<label id = "label_review" for="text-area"><b>Review</b></label><br>' + '<textarea id="text-area" rows="5" name="review">' + review + '</textarea>'
+                        document.getElementById("review_text").innerHTML = codereview
+                    }
+                }
+            });
+
+            function submit_review() {
+                const request = new XMLHttpRequest()
+                // const isbn = document.querySelector("#isbn").value
+                const isbn = global_isbn
+                //to get the rating
+                var ratings = document.getElementsByName("rating")
+                var rating = null
+                for (let i = 0; i < ratings.length; i++) {
+                    if(ratings[i].checked === true) {
+                        rating = ratings[i].value
+                        console.log("user rating", rating)
+                    }
+                }
+                const review = document.querySelector("#text-area").value
+                request.open("POST", "/submit-review")
+                const data = new FormData()
+                data.append("isbn", isbn)
+                data.append("rating", rating)
+                data.append("review", review)
+                request.send(data)
+                
+                request.onload = () => {
+                    const data = JSON.parse(request.responseText)
+                    if (data.status_code === 200) {
+                        alert("updated")
+                        set_reviewHTML(data.rating, data.review)
+                    } else {
+                        alert("There was an error")
+                    }
+                }
+                return false
+            }
+
+        </script>
+    </head>
+    <body class = "body_result">
+        <div id = "topBar">
+            <div id = "display_username">welcome <span id = "userName">{{ name }}</span></div>
+            <div id = "logout"><a href="{{ url_for('logout') }}">Logout</a></div>
+        </div>
+        <div id = "searchBar_result">
+            <form>
+                <select class="form-type" name="type">
+                    <option value="all">all</option>
+                    <option value="isbn">Isbn</option>
+                    <option value="title">title</option>
+                    <option value="author">author</option>
+                </select>
+                <input type="search" class = "Bar" name="BookDetails" placeholder="BookDetails" value="{{ query }}" required>
+                <button id = "search-button">search</button>
+                <div id = "result_num"></div>
+            </form>
+                <div class = "scrollBar">
+                    <div  id = "zoom_title">
+                    </div>
+                </div>
+                <div class= "BookPage">
+                    <div id="book_details">
+                        <p id="book_isbn"></p>
+                        <p id="book_author"></p>
+                        <p id="book_title"></p>
+                        <p id="book_year"></p>
+                    </div>
+
+                    <div id="review_feature" style="display: none;">
+                        <div class="rate" id="rating" ></div><br><br><br>
+                        <div id="review_text"></div>
+                        <button class="btn btn-secondary" style="margin-left: 25vw;" onclick="submit_review()">Submit</button>
+                    </div>
+                </div>
+        </div>
+    </body>
+</html>

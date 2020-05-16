@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Book Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+        <style>
+
+        </style>
+    </head>
+    <body class="body_bookpage">
+        <div class="row">
+            <div class="col col_left">
+            </div>
+            <div class="col-6 col_middle">
+                <div class="title_bookpage">
+                    Book details...
+                </div>
+                <div class="details_table">
+                    <table>
+                        <tr>    
+                            <th>Title :</td>
+                            <td>{{ book.title }}</td>
+                        </tr>
+                        <tr>    
+                            <th>ISBN :</td>
+                            <td>{{ book.isbn }}</td>
+                        </tr>
+                        <tr>    
+                            <th>Author :</td>
+                            <td>{{ book.author }}</td>
+                        </tr>
+                        <tr>    
+                            <th>Year :</td>
+                            <td>{{ book.year }}</td>
+                        </tr>
+                    </table>
+                </div>
+                {% if review_given %}
+                    <div class="review_table">
+                        <div id="review_rating">
+                            <!-- <p>Your rating :  <span id="review_text">{{ review.rating }} / 5</span></p> -->
+                            <p><strong>Your rating  :</strong>
+                            {% if review.rating == 1 %}
+                                <span class="fa fa-star star_checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span> 
+                            {% elif review.rating == 2 %}
+                                <span class="fa fa-star star_checked"></span>
+                                <span class="fa fa-star star_checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span> 
+                            {% elif review.rating == 3 %}
+                                <span class="fa fa-star star_checked"></span>
+                                <span class="fa fa-star star_checked"></span>
+                                <span class="fa fa-star star_checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span> 
+                            {% elif review.rating == 4 %}
+                                <span class="fa fa-star star_checked"></span>
+                                <span class="fa fa-star star_checked"></span>
+                                <span class="fa fa-star star_checked"></span>
+                                <span class="fa fa-star star_checked"></span>
+                                <span class="fa fa-star"></span> 
+                            {% elif review.rating == 5 %}
+                                <span class="fa fa-star star_checked"></span>
+                                <span class="fa fa-star star_checked"></span>
+                                <span class="fa fa-star star_checked"></span>
+                                <span class="fa fa-star star_checked"></span>
+                                <span class="fa fa-star star_checked"></span> 
+                            {% endif %}       
+                            </p>         
+                        </div>
+                        <div id="review_review">
+                            <p><strong>Your review :  </strong><span id="review_text">{{ review.review }}</span></p>
+                        </div>
+                    </div>
+                    <!-- <button class="button review_button" onclick="window.location.href = 'review, isbn=book.isbn'">Edit Review</button> -->
+                    <button class="button review_button" onclick="window.location.href='{{ url_for( 'review' , isbn=book.isbn) }}';">Edit Review</button>
+                {% else %}
+                    <div id="buttonarea_text">
+                        Click below to review this book...!
+                    </div>
+                    <div>
+                        <!-- <button type="button" class="btn btn-secondary btn-lg">Review this book</button> -->
+                        <button class="button review_button" onclick="window.location.href ='{{ url_for( 'review' , isbn=book.isbn) }}';">Review this book!!</button>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col col_right">
+            </div>
+        </div>
+    </body>
+</html>

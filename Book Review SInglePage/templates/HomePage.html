@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HomePage</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+        </style>
+    </head>
+    <body class = "body_home">
+        <div id = "display_username">{{ name }}</div>
+        <div id = "logout"><a href="{{ url_for('logout') }}">Logout</a></div>
+        <div id = "welcome-message">Hello {{ name }}, Welcome...!</div>
+        <div id = "searchBar_home">
+            <form action="{{ url_for('search') }}" method="POST">
+                <select class="form-type" name="type">
+                    <option value="all">all</option>
+                    <option value="isbn">Isbn</option>
+                    <option value="title">title</option>
+                    <option value="author">author</option>
+                </select>
+                <input type="search" class = "Bar" name="BookDetails" placeholder=" Enter Book Details" required>
+                <button id = "search-button">search</button>
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,15 @@
+.rate {
+    float:left;
+}
+.rate:not(:checked) > input {
+    position: absolute;
+    display: None;
+}
+.rate:not(:checked) > label {
+    float:right;
+    cursor: pointer;
+    font-size: 30px;
+    /* color: #ccc; */
+}
+.rate:not(:checked) > label:before { content: '★'; }
+.rate > input:checked ~ label { color: #ff6600; }

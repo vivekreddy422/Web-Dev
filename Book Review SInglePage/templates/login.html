@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Webpage</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body class="body_reg">
+        <div class="form-container">
+            <div class="title">
+                <h2>Login</h2>
+            </div>
+            <div class="row">
+                <div class="form-column">
+                    <form action="" >
+                        {% if error %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ errorMessage }}
+                            </div>
+                        {% endif %}
+                        {% if success %}
+                            <div class="alert alert-success" role="alert">
+                                {{ successMessage }}
+                            </div>
+                        {% endif %}
+                        <label class = "label-login" for="userName">Username</label>
+                        <input type="text" id="userName" name="userName" placeholder="Enter your new username..">
+                        <label class = "label-login" for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Enter your password...">
+                        <div class="button_area">
+                            <button class="button login_button" formmethod="POST" formaction= "{{ url_for('login') }}" name="button" value="login">Login</button>
+                            <button class="button register_button" formmethod="GET" formaction= "{{ url_for('register') }}" name="button" value="register">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

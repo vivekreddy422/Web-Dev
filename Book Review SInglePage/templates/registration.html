@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Registration</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">    
+    </head>
+
+    <body class="body_reg">
+        <div class="form-container">
+            <div></div>
+            <div class="title">
+                <h2>Registration Info</h2>
+            </div>
+            <div class="row">
+                <div class="form-column">
+                    <form action="{{ url_for('register') }}" method="POST">
+                        {% if error %}
+                            <div class="alert alert-warning" role="alert">
+                                {{ errorMessage }}
+                            </div>
+                        {% endif %}
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your name.." required>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email.." style="width: 100%; margin-left: 17%; height: 40px; margin-bottom: 4%; padding-left: 3%;" required>
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="userName" placeholder="Enter your username.." required>
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Enter your password.." required>
+                        <div class="button_area" style="margin-left: 30%;">
+                            <button class="button submit_button" name="button" value="submit">Submit</button>
+                            <div id="reg_text">
+                                <h4>Already existing user?<a style="color: white;" href="/login"> Click here to login...</a></h4>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
